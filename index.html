@@ -8,14 +8,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Чеклист встреч">
     <meta name="theme-color" content="#10B981">
-    
-    <!-- DNS prefetch для улучшения загрузки -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    
-    <!-- Предзагрузка критических ресурсов -->
-    <link rel="preload" href="/src/main.tsx" as="script">
-    
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Чеклист встреч</title>
@@ -70,38 +62,13 @@
       // iOS Safari compatibility check
       try {
         if (typeof window !== 'undefined') {
-          // Проверка IPv6 проблем
-          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-          const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-          
-          if (isIOS && isMobile) {
-            console.log('Detected potential IPv6 issues on iOS mobile');
-            // Добавляем дополнительное время для загрузки
-            document.documentElement.style.setProperty('--loading-delay', '2s');
-          }
-          
           // Test localStorage availability
           window.localStorage.setItem('test', 'test');
           window.localStorage.removeItem('test');
-          
-          // Добавляем обработчик для медленного соединения
-          if ('connection' in navigator) {
-            const connection = (navigator as any).connection;
-            if (connection && connection.effectiveType === 'slow-2g') {
-              console.log('Slow connection detected');
-            }
-          }
         }
       } catch (e) {
         console.warn('localStorage not available:', e);
       }
-      
-      // Обработка ошибок загрузки ресурсов
-      window.addEventListener('error', function(e) {
-        if (e.target && e.target.tagName) {
-          console.warn('Resource loading error:', e.target.src || e.target.href);
-        }
-      });
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>

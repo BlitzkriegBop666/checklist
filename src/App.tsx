@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { detectNetworkIssues, preloadCriticalResources, addNetworkFallbacks } from './utils/networkUtils';
 import ChecklistBlock from './components/ChecklistBlock';
 import OverallProgress from './components/OverallProgress';
 import TabButton from './components/TabButton';
-import NetworkStatus from './components/NetworkStatus';
-import LoadingFallback from './components/LoadingFallback';
 import { initialChecklistBlocks } from './data/checklistData';
 import { kepChecklistBlocks } from './data/kepData';
 import { orsChecklistBlocks } from './data/orsData';
@@ -13,7 +10,6 @@ import type { ChecklistBlock as ChecklistBlockType, ChecklistType } from './type
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
   const [activeTab, setActiveTab] = useState<ChecklistType>('ors');
   
   // Separate localStorage for each checklist type
@@ -21,38 +17,30 @@ function App() {
   const [kepBlocks, setKepBlocks] = useLocalStorage<ChecklistBlockType[]>('kep-checklist-blocks', kepChecklistBlocks);
 
   useEffect(() => {
-    // Инициализация сетевых утилит
-    preloadCriticalResources();
-    addNetworkFallbacks();
-    
-    const networkInfo = detectNetworkIssues();
-    console.log('Network info:', networkInfo);
-    
-    // Ensure app is fully loaded before rendering
+    // Простая инициализация без сложных проверок
     const timer = setTimeout(() => {
-      try {
-        setIsLoaded(true);
-        setHasError(false);
-      } catch (error) {
-        console.error('Loading error:', error);
-        setHasError(true);
-      }
-    }, networkInfo.isLikelyIPv6Issue ? 1000 : 100); // Больше времени для проблемных сетей
+      setIsLoaded(true);
+    }, 100);
     
     return () => clearTimeout(timer);
   }, []);
 
-  const handleRetry = () => {
-    setIsLoaded(false);
-    setHasError(false);
-    setTimeout(() => {
-      try {
-        setIsLoaded(true);
-      } catch (error) {
-        setHasError(true);
-      }
-    }, 500);
-  };
+  if (!isLoaded) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #f3e8ff 100%)',
+        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+        fontSize: '18px',
+        color: '#374151'
+      }}>
+        Загрузка...
+      </div>
+    );
+  }
 
   const getCurrentBlocks = () => {
     return activeTab === 'ors' ? orsBlocks : kepBlocks;
@@ -105,14 +93,6 @@ function App() {
 
   return (
     <div className="app-container">
-      <NetworkStatus />
-      <LoadingFallback 
-        isLoading={!isLoaded} 
-        hasError={hasError} 
-        onRetry={handleRetry} 
-      />
-      
-      {isLoaded && !hasError && (
       <div className="container mx-auto px-4 py-6 max-w-4xl">
         <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
           Чеклист встреч
@@ -158,7 +138,6 @@ function App() {
           ))}
         </div>
       </div>
-      )}
     </div>
   );
 }

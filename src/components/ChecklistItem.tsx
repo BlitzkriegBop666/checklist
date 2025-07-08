@@ -25,18 +25,14 @@ export default function ChecklistItem({
       <button
         onClick={() => onToggle(id)}
         type="button"
-        className={`checkbox-button flex-shrink-0 w-8 h-8 rounded-full border-3 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-md relative ${
+        className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 hover:scale-105 ${
           completed
-            ? 'bg-emerald-500 border-emerald-500 text-white shadow-lg ring-2 ring-emerald-200'
-            : 'bg-white border-gray-500 hover:border-emerald-500 hover:bg-emerald-50 hover:shadow-lg hover:ring-2 hover:ring-emerald-200'
+            ? 'bg-emerald-500 border-emerald-500 text-white shadow-md'
+            : 'border-gray-300 hover:border-emerald-400 hover:bg-emerald-50'
         }`}
         style={{ WebkitTapHighlightColor: 'transparent' }}
       >
-        {completed ? (
-          <Check size={18} className="stroke-[3]" />
-        ) : (
-          <div className="w-2 h-2 bg-gray-300 rounded-full opacity-50" />
-        )}
+        {completed && <Check size={14} className="stroke-[3]" />}
       </button>
       
       <span className={`flex-1 text-gray-800 transition-all duration-200 ${
