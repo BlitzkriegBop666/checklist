@@ -3,44 +3,16 @@ import { useLocalStorage } from './hooks/useLocalStorage';
 import ChecklistBlock from './components/ChecklistBlock';
 import OverallProgress from './components/OverallProgress';
 import TabButton from './components/TabButton';
-import { initialChecklistBlocks } from './data/checklistData';
 import { kepChecklistBlocks } from './data/kepData';
 import { orsChecklistBlocks } from './data/orsData';
 import type { ChecklistBlock as ChecklistBlockType, ChecklistType } from './types/checklist';
 
 function App() {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState<ChecklistType>('ors');
   
   // Separate localStorage for each checklist type
   const [orsBlocks, setOrsBlocks] = useLocalStorage<ChecklistBlockType[]>('ors-checklist-blocks', orsChecklistBlocks);
   const [kepBlocks, setKepBlocks] = useLocalStorage<ChecklistBlockType[]>('kep-checklist-blocks', kepChecklistBlocks);
-
-  useEffect(() => {
-    // Простая инициализация без сложных проверок
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!isLoaded) {
-    return (
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #f3e8ff 100%)',
-        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-        fontSize: '18px',
-        color: '#374151'
-      }}>
-        Загрузка...
-      </div>
-    );
-  }
 
   const getCurrentBlocks = () => {
     return activeTab === 'ors' ? orsBlocks : kepBlocks;

@@ -4,13 +4,13 @@ import './index.css'
 import App from './App.tsx'
 import ErrorBoundary from './components/ErrorBoundary'
 
-// Remove loading indicator
-const loadingElement = document.querySelector('.loading');
-if (loadingElement) {
-  loadingElement.remove();
-}
-
 try {
+  // Remove loading indicator
+  const loadingElement = document.querySelector('.loading');
+  if (loadingElement) {
+    loadingElement.remove();
+  }
+  
   const root = createRoot(document.getElementById('root')!);
   root.render(
     <StrictMode>
