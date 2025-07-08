@@ -3,6 +3,7 @@ import { useLocalStorage } from './hooks/useLocalStorage';
 import ChecklistBlock from './components/ChecklistBlock';
 import OverallProgress from './components/OverallProgress';
 import TabButton from './components/TabButton';
+import ClearButton from './components/ClearButton';
 import { kepChecklistBlocks } from './data/kepData';
 import { orsChecklistBlocks } from './data/orsData';
 import type { ChecklistBlock as ChecklistBlockType, ChecklistType } from './types/checklist';
@@ -61,6 +62,20 @@ function App() {
   const orsStats = getTabStats(orsBlocks);
   const kepStats = getTabStats(kepBlocks);
 
+  const handleClearAll = () => {
+    if (activeTab === 'ors') {
+      setOrsBlocks(orsChecklistBlocks.map(block => ({
+        ...block,
+        items: block.items.map(item => ({ ...item, completed: false }))
+      })));
+    } else {
+      setKepBlocks(kepChecklistBlocks.map(block => ({
+        ...block,
+        items: block.items.map(item => ({ ...item, completed: false }))
+      })));
+    }
+  };
+
   const currentBlocks = getCurrentBlocks();
 
   return (
@@ -96,6 +111,11 @@ function App() {
             blocks={currentBlocks} 
             title={`Общий прогресс ${activeTab.toUpperCase()}`}
           />
+        </div>
+
+        {/* Clear Button */}
+        <div className="mb-6">
+          <ClearButton onClear={handleClearAll} />
         </div>
 
         {/* Checklist Blocks */}

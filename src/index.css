@@ -116,14 +116,15 @@ button, [role="button"] {
   
   /* Увеличить чекбоксы на мобильных */
   .checkbox-button {
-    width: 36px !important;
-    height: 36px !important;
+    width: 40px !important;
+    height: 40px !important;
     border-width: 3px !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
   }
   
   .checkbox-button:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+    transform: scale(1.1) !important;
   }
 }
 
