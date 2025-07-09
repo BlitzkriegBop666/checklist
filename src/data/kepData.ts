@@ -2,7 +2,7 @@ import type { ChecklistBlock } from '../types/checklist';
 
 export const kepChecklistBlocks: ChecklistBlock[] = [
   {
-    id: 'introduction-kep',
+    id: 'introduction-kep', 
     title: 'Знакомство',
     isCollapsed: false,
     items: [
@@ -46,11 +46,6 @@ export const kepChecklistBlocks: ChecklistBlock[] = [
       {
         id: 'sno-okved-kep',
         text: 'Подтвердил СНО и ОКВЭД',
-        completed: false
-      },
-      {
-        id: 'sm-registration-kep',
-        text: 'Зарегались в СМ',
         completed: false
       },
       {

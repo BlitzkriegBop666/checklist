@@ -11,4 +11,5 @@ export interface ChecklistBlock {
   isCollapsed: boolean;
 }
 
-export type ChecklistType = 'ors' | 'kep';
+export type ChecklistType = 'ors' | 'kep' | 'vks';
+export type VksSubType = 'rega-ors' | 'ukep';
