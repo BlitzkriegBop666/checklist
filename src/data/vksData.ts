@@ -72,6 +72,23 @@ export const vksRegaOrsBlocks: ChecklistBlock[] = [
     ]
   },
   {
+    id: 'official-part-vks-rega',
+    title: 'Официальная часть + ИД',
+    isCollapsed: false,
+    items: [
+      {
+        id: 'official-phrases-vks-rega',
+        text: 'ОФ. Фразы и подтверждение номера для ИБ',
+        completed: false
+      },
+      {
+        id: 'identification-vks-rega',
+        text: 'Идентификация',
+        completed: false
+      }
+    ]
+  },
+  {
     id: 'products-vks-rega',
     title: 'Продукты',
     isCollapsed: false,
@@ -169,6 +186,23 @@ export const vksUkepBlocks: ChecklistBlock[] = [
       {
         id: 'access-vks-ukep',
         text: 'Доступы',
+        completed: false
+      }
+    ]
+  },
+  {
+    id: 'official-part-vks-ukep',
+    title: 'Официальная часть + ИД',
+    isCollapsed: false,
+    items: [
+      {
+        id: 'official-phrases-vks-ukep',
+        text: 'ОФ. Фразы и подтверждение номера для ИБ',
+        completed: false
+      },
+      {
+        id: 'identification-vks-ukep',
+        text: 'Идентификация',
         completed: false
       }
     ]
